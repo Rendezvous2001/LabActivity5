@@ -25,7 +25,7 @@ public class FoodOrderGUI extends JFrame {
 
     private List<JCheckBox> rbCheckBox;
 
-    public FoodOrderGUI() {
+    public FoodOrderGUI() throws Exception{
 
         rbButtons = new ArrayList<>();
         rbButtons.add(rbNone);
@@ -44,57 +44,66 @@ public class FoodOrderGUI extends JFrame {
         btnOrder.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int countRbCheckBox = 0;
-                double foodPrice = 0;
 
-                for (JCheckBox rbC : rbCheckBox) {
-                    if (rbC.isSelected()) {
-                        if (rbC.getText().equals("Pizza")) {
-                            foodPrice += 100;
-                            countRbCheckBox++;
-                        } else if (rbC.getText().equals("Burger")) {
-                            foodPrice += 80;
-                            countRbCheckBox++;
-                        } else if (rbC.getText().equals("Fries")) {
-                            foodPrice += 65;
-                            countRbCheckBox++;
-                        } else if (rbC.getText().equals("Soft drinks")) {
-                            foodPrice += 55;
-                            countRbCheckBox++;
-                        } else if (rbC.getText().equals("Tea")) {
-                            foodPrice += 50;
-                            countRbCheckBox++;
-                        } else if (rbC.getText().equals("Sundae")) {
-                            foodPrice += 40;
-                            countRbCheckBox++;
-                        }
+                try {
+                    int countRbCheckBox = 0;
+                    double foodPrice = 0;
 
+                    for (JCheckBox rbC : rbCheckBox) {
+                        if (rbC.isSelected()) {
+                            if (rbC.getText().equals("Pizza")) {
+                                foodPrice += 100;
+                                countRbCheckBox++;
+                            } else if (rbC.getText().equals("Burger")) {
+                                foodPrice += 80;
+                                countRbCheckBox++;
+                            } else if (rbC.getText().equals("Fries")) {
+                                foodPrice += 65;
+                                countRbCheckBox++;
+                            } else if (rbC.getText().equals("Soft Drinks")) {
+                                foodPrice += 55;
+                                countRbCheckBox++;
+                            } else if (rbC.getText().equals("Tea")) {
+                                foodPrice += 50;
+                                countRbCheckBox++;
+                            } else if (rbC.getText().equals("Sundae")) {
+                                foodPrice += 40;
+                                countRbCheckBox++;
+                            }
+                        }
+                    }  if (countRbCheckBox == 0) {
+                            throw new noFoodSelected("No Food Selected, Please Select");
                     }
-                }
-                int foodDiscount = 0;
-                for (JRadioButton rbB : rbButtons) {
-                    if (rbB.isSelected()) {
-                        if (rbB.getText().equals("None")) {
-                            JOptionPane.showMessageDialog(panel3, "The total price is Php " + String.format("%.2f", foodPrice));//To have a 2 decimal places of none flat prices
-                            foodDiscount++;
-                        } else if (rbB.getText().equals("5% Off")) {
-                            JOptionPane.showMessageDialog(panel3, "The total price is Php " + String.format("%.2f", foodPrice * .95));//Meaning the 5 percent discount has been deducted to 100% then multiply to the total price
-                            foodDiscount++;
-                        } else if (rbB.getText().equals("10% Off")) {
-                            JOptionPane.showMessageDialog(panel3, "The total price is Php " + String.format("%.2f", foodPrice * .90));
-                            foodDiscount++;
-                        } else if (rbB.getText().equals("15% Off")) {
-                            JOptionPane.showMessageDialog(panel3, "The total price is Php " + String.format("%.2f", foodPrice * .85));
-                            foodDiscount++;
+                    int foodDiscount = 0;
+                    for (JRadioButton rbB : rbButtons) {
+                        if (rbB.isSelected()) {
+                            if (rbB.getText().equals("None")) {
+                                JOptionPane.showMessageDialog(panel3, "The total price is Php " + String.format("%.2f", foodPrice));//To have a 2 decimal places of none flat prices
+                                foodDiscount++;
+                            } else if (rbB.getText().equals("5% Off")) {
+                                JOptionPane.showMessageDialog(panel3, "The total price is Php " + String.format("%.2f", foodPrice * .95));//Meaning the 5 percent discount has been deducted to 100% then multiply to the total price
+                                foodDiscount++;
+                            } else if (rbB.getText().equals("10% Off")) {
+                                JOptionPane.showMessageDialog(panel3, "The total price is Php " + String.format("%.2f", foodPrice * .90));
+                                foodDiscount++;
+                            } else if (rbB.getText().equals("15% Off")) {
+                                JOptionPane.showMessageDialog(panel3, "The total price is Php " + String.format("%.2f", foodPrice * .85));
+                                foodDiscount++;
+                            }
                         }
                     }
+                    if (foodDiscount == 0) {
+                        throw new noDiscountSelected("No Discount Selected, Please Select");
+                    }
+                } catch ( noFoodSelected | noDiscountSelected e3){
+                    JOptionPane.showMessageDialog(panel3, e3.getMessage());
                 }
             }
         });
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         FoodOrderGUI app = new FoodOrderGUI();
         app.setContentPane(app.panel3);//To run Frame function
         app.setSize(500, 500);
@@ -104,4 +113,18 @@ public class FoodOrderGUI extends JFrame {
     }
 
 }
+
+class noFoodSelected extends Exception{// for user-define exception handling, to enable exceptions
+    public noFoodSelected (String str){
+        super(str);// to make variable of the string
+    }
+}
+class noDiscountSelected extends Exception{// for user-define exception handling, to enable exceptions
+    public noDiscountSelected (String str){
+        super(str);// to make variable of the string
+    }
+}
+
+
+
 
