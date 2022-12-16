@@ -2,8 +2,9 @@ package FoodOrdering;
 
 import javax.swing.*;
 
-public class FoodOrderGUI {
-    private JPanel panel1;
+public class FoodOrderGUI extends JFrame {
+
+    private JPanel panel3;
     private JCheckBox cPizza;
     private JRadioButton rbNone;
     private JButton btnOrder;
@@ -15,5 +16,14 @@ public class FoodOrderGUI {
     private JRadioButton rb5;
     private JRadioButton rb10;
     private JRadioButton rb15;
+
+    public static void main(String[] args) {
+        FoodOrderGUI app = new FoodOrderGUI();
+        app.setContentPane(app.panel3);//To run Frame function
+        app.setSize(500, 500);
+        app.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        app.setVisible(true);
+        app.setTitle("Food Ordering System");
+    }
 
 }
