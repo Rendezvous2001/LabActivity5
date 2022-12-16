@@ -13,7 +13,7 @@ public class SimpleCalcGUI extends JFrame{// For
     private JTextField tfNumber2;
     private JTextField lblResult;
 
-    public SimpleCalcGUI(){
+    public SimpleCalcGUI() throws Exception{// since Try catch exception handling if inside here
         cbOperations.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -24,23 +24,28 @@ public class SimpleCalcGUI extends JFrame{// For
         btnCompute.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int total = 0;
 
-                int first = Integer.parseInt(tfNumber1.getText());// to type something to text field and be saved
-                int second = Integer.parseInt(tfNumber2.getText());
+                try {
+                    int total = 0;
 
-                if (cbOperations.getSelectedItem().equals("+")) {
-                    total = first + second;
-                    lblResult.setText(Integer.toString(total));
-                } else if (cbOperations.getSelectedItem().equals("-")) {
-                    total = first - second;
-                    lblResult.setText(Integer.toString(total));
-                } else if (cbOperations.getSelectedItem().equals("*")) {
-                    total = first * second;
-                    lblResult.setText(Integer.toString(total));
-                } else if (cbOperations.getSelectedItem().equals("/")) {
-                    total = first / second;
-                    lblResult.setText(Integer.toString(total));
+                    int first = Integer.parseInt(tfNumber1.getText());// to type something to text field and be saved
+                    int second = Integer.parseInt(tfNumber2.getText());
+
+                    if (cbOperations.getSelectedItem().equals("+")) {
+                        total = first + second;
+                        lblResult.setText(Integer.toString(total));
+                    } else if (cbOperations.getSelectedItem().equals("-")) {
+                        total = first - second;
+                        lblResult.setText(Integer.toString(total));
+                    } else if (cbOperations.getSelectedItem().equals("*")) {
+                        total = first * second;
+                        lblResult.setText(Integer.toString(total));
+                    } else if (cbOperations.getSelectedItem().equals("/")) {
+                        total = first / second;
+                        lblResult.setText(Integer.toString(total));
+                    }
+                }catch(Exception e1) {
+                    JOptionPane.showMessageDialog(panel2, "Invalid Input");
                 }
             }
         });
@@ -48,7 +53,7 @@ public class SimpleCalcGUI extends JFrame{// For
 
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{ // to call the exception handling in the main method
 
         SimpleCalcGUI app = new SimpleCalcGUI();
         app.setContentPane(app.panel2);
